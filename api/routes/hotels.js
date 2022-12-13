@@ -14,8 +14,17 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/', (req, res) => {
-    res.send("Hello, this is an auth endpoint")
+router.put('/:id', async (req, res) => {
+    try {
+        const updated = await Hotel.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+        res.status(200).json(updated)
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
+
+// router.get('/', (req, res) => {
+//     res.send("Hello, this is an auth endpoint")
+// })
 
 export default router
