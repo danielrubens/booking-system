@@ -6,6 +6,8 @@ import {auth, users, hotels, rooms} from './routes/index.js'
 dotenv.config()
 const app = express()
 
+app.use(express.json())
+
 app.use('/api/auth', auth)
 app.use('/api/users', users)
 app.use('/api/hotels', hotels)
