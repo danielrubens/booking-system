@@ -13,6 +13,10 @@ app.use('/api/users', users)
 app.use('/api/hotels', hotels)
 app.use('/api/rooms', rooms)
 
+app.use((err, req, res, next) => {
+    return res.status(500).json("Hello, error from handler")
+})
+
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO)
