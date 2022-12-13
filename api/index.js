@@ -14,9 +14,10 @@ const connect = async () => {
     }
 }
 
-// mongoose.connection.on("disconnect" () => {
-//     console.log("")
-// })
+app.get('/', (req, res) => {
+    res.send("Hello")
+})
+
 app.listen(8800, () =>{
     connect()
     console.log("Connected to backend")
