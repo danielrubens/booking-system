@@ -3,6 +3,6 @@ import controller from '../controllers/auth.js'
 
 const router = Router()
 
-router.get('/', controller.register)
+router.post('/', controller.register)
 
 export default router
