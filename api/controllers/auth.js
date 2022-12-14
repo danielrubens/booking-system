@@ -26,6 +26,7 @@ const login = async (req, res, next) => {
         const valid = await bcrypt.compare(req.body.password, user.password)
         if (!valid) return next(createError(400, "Wrong password or user"))
         const { password, isAdmin, ...otherDetails } = user._doc
+        console.log(user._doc)
         const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT)
         res.cookie("access_token", token, { httpOnly: true }).status(201).json({...otherDetails})
     } catch (error) {
