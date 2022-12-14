@@ -28,6 +28,15 @@ const insert = async (req, res, next) => {
     }
 }
 
+const remove = async (req, res, next) => {
+    try {
+        await Hotel.findByIdAndDelete(req.params.id)
+        res.status(200).json("Hotel has been deleted")
+    } catch (error) {
+        next(error)
+    }
+}
+
 const update = async (req, res, next) => {
     try {
         const updated = await Hotel.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
@@ -37,4 +46,4 @@ const update = async (req, res, next) => {
     }
 }
 
-export default {insert, getAll, getById, update}
+export default { getAll, getById, insert, remove, update}
