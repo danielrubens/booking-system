@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import createError from '../utils/error.js'
+import createError from './error.js'
 
 const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token
@@ -11,18 +11,18 @@ const verifyToken = (req, res, next) => {
     })
 }
 
-const verifyUser = (req, res, next) => {
+const user = (req, res, next) => {
     verifyToken(req, res, () => {
         if(req.user.id === req.params.id || req.user.isAdmin) next()
         return next(createError(403, "You are not authorized"))
     })
 }
 
-const verifyAdmin = (req, res, next) => {
+const admin = (req, res, next) => {
     verifyToken(req, res, () => {
         if(!req.user.isAdmin) return next(createError(403, "You are not authorized"))
         next()
     })
 }
 
-export default { verifyToken, verifyUser, verifyAdmin }
+export default { verifyToken, user, admin }
