@@ -1,11 +1,12 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import cookie from 'cookie-parser'
 import {auth, users, hotels, rooms} from './routes/index.js'
 
 dotenv.config()
 const app = express()
-
+app.use(cookie())
 app.use(express.json())
 
 app.use('/api/auth', auth)
