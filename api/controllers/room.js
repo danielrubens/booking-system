@@ -37,8 +37,14 @@ const insert = async (req, res, next) => {
 }
 
 const remove = async (req, res, next) => {
+    const hotelId = req.params.hotelId
     try {
         await Room.findByIdAndDelete(req.params.id)
+        try {
+            await Hotel.findByIdAndUpdate(hotelId, { $pull: {rooms: req.params.id}})
+        } catch (error) {
+            next(error)
+        }
         res.status(200).json("Room has been deleted")
     } catch (error) {
         next(error)
