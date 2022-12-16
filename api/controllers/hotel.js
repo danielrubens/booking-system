@@ -18,6 +18,25 @@ const getById = async (req, res, next) => {
     }
 }
 
+const getByCity = async (req, res, next) => {
+    const cities = req.query.cities.split(',')
+    try {
+        const list = await Promise.all(cities.map(city => { return Hotel.countDocuments({ city: city })}))
+        res.status(200).json(list)
+    } catch (error) {
+        next(error)
+    }
+}
+
+const getByType = async (req, res, next) => {
+    try {
+        const hotel = await Hotel.find()
+        res.status(200).json(hotel)
+    } catch (error) {
+        next(error)
+    }
+}
+
 const insert = async (req, res, next) => {
     const created = new Hotel(req.body)
     try {
@@ -46,4 +65,4 @@ const update = async (req, res, next) => {
     }
 }
 
-export default { getAll, getById, insert, remove, update}
+export default { getAll, getById, getByCity, insert, remove, update}

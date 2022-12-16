@@ -4,6 +4,8 @@ import controller from '../controllers/hotel.js'
 
 const router = Router()
 
+router.get('/countByCity', controller.getByCity)
+router.get('/countByType', controller.getByCity)
 router.get('/', controller.getAll)
 router.get('/:id', controller.getById)
 router.post('/', Authorize.admin, controller.insert)
